@@ -1,0 +1,302 @@
+[
+  {
+    "timestamp": "2025-09-27 21:57:54",
+    "homelab-dev": {
+      "cpu": "52%",
+      "memoria": "68%",
+      "ram": "8GB",
+      "docker": "11 containers ativos",
+      "portas": ["80", "443", "22", "8080"],
+      "rede": "192.168.1.100",
+      "status": "online"
+    },
+    "homelab-test": {
+      "cpu": "78%",
+      "memoria": "81%",
+      "ram": "16GB",
+      "docker": "8 containers ativos",
+      "portas": ["3000", "5000", "22", "3306"],
+      "rede": "192.168.1.101",
+      "status": "online"
+    },
+    "homelab-prod": {
+      "cpu": "15%",
+      "memoria": "28%",
+      "ram": "4GB",
+      "docker": "3 containers ativos",
+      "portas": ["8081", "22"],
+      "rede": "192.168.1.102",
+      "status": "online"
+    }
+  },
+  {
+    "timestamp": "2025-09-27 22:12:34",
+    "homelab-dev": {
+      "cpu": "45%",
+      "memoria": "71%",
+      "ram": "8GB",
+      "docker": "12 containers ativos",
+      "portas": ["80", "443", "22", "8080"],
+      "rede": "192.168.1.100",
+      "status": "online"
+    },
+    "homelab-test": {
+      "cpu": "89%",
+      "memoria": "87%",
+      "ram": "16GB",
+      "docker": "6 containers ativos",
+      "portas": ["3000", "5000", "22", "3306"],
+      "rede": "192.168.1.101",
+      "status": "online"
+    },
+    "homelab-prod": {
+      "cpu": "18%",
+      "memoria": "31%",
+      "ram": "4GB",
+      "docker": "4 containers ativos",
+      "portas": ["8081", "22"],
+      "rede": "192.168.1.102",
+      "status": "online"
+    }
+  },
+  {
+    "timestamp": "2025-09-27 22:27:15",
+    "homelab-dev": {
+      "cpu": "38%",
+      "memoria": "69%",
+      "ram": "8GB",
+      "docker": "13 containers ativos",
+      "portas": ["80", "443", "22", "8080"],
+      "rede": "192.168.1.100",
+      "status": "online"
+    },
+    "homelab-test": {
+      "cpu": "92%",
+      "memoria": "89%",
+      "ram": "16GB",
+      "docker": "7 containers ativos",
+      "portas": ["3000", "5000", "22", "3306"],
+      "rede": "192.168.1.101",
+      "status": "online"
+    },
+    "homelab-prod": {
+      "cpu": "22%",
+      "memoria": "35%",
+      "ram": "4GB",
+      "docker": "5 containers ativos",
+      "portas": ["8081", "22"],
+      "rede": "192.168.1.102",
+      "status": "online"
+    }
+  },
+  {
+    "timestamp": "2025-09-27 22:42:08",
+    "homelab-dev": {
+      "cpu": "41%",
+      "memoria": "70%",
+      "ram": "8GB",
+      "docker": "12 containers ativos",
+      "portas": ["80", "443", "22", "8080"],
+      "rede": "192.168.1.100",
+      "status": "online"
+    },
+    "homelab-test": {
+      "cpu": "85%",
+      "memoria": "85%",
+      "ram": "16GB",
+      "docker": "8 containers ativos",
+      "portas": ["3000", "5000", "22", "3306"],
+      "rede": "192.168.1.101",
+      "status": "online"
+    },
+    "homelab-prod": {
+      "cpu": "19%",
+      "memoria": "33%",
+      "ram": "4GB",
+      "docker": "4 containers ativos",
+      "portas": ["8081", "22"],
+      "rede": "192.168.1.102",
+      "status": "manutencao"
+    }
+  },
+  {
+    "timestamp": "2025-09-27 22:56:42",
+    "homelab-dev": {
+      "cpu": "49%",
+      "memoria": "73%",
+      "ram": "8GB",
+      "docker": "11 containers ativos",
+      "portas": ["80", "443", "22", "8080"],
+      "rede": "192.168.1.100",
+      "status": "online"
+    },
+    "homelab-test": {
+      "cpu": "87%",
+      "memoria": "86%",
+      "ram": "16GB",
+      "docker": "7 containers ativos",
+      "portas": ["3000", "5000", "22", "3306"],
+      "rede": "192.168.1.101",
+      "status": "online"
+    },
+    "homelab-prod": {
+      "cpu": "16%",
+      "memoria": "29%",
+      "ram": "4GB",
+      "docker": "3 containers ativos",
+      "portas": ["8081", "22"],
+      "rede": "192.168.1.102",
+      "status": "manutencao"
+    }
+  },
+  {
+    "timestamp": "2025-09-27 23:11:27",
+    "homelab-dev": {
+      "cpu": "44%",
+      "memoria": "71%",
+      "ram": "8GB",
+      "docker": "12 containers ativos",
+      "portas": ["80", "443", "22", "8080"],
+      "rede": "192.168.1.100",
+      "status": "online"
+    },
+    "homelab-test": {
+      "cpu": "83%",
+      "memoria": "83%",
+      "ram": "16GB",
+      "docker": "6 containers ativos",
+      "portas": ["3000", "5000", "22", "3306"],
+      "rede": "192.168.1.101",
+      "status": "online"
+    },
+    "homelab-prod": {
+      "cpu": "21%",
+      "memoria": "32%",
+      "ram": "4GB",
+      "docker": "4 containers ativos",
+      "portas": ["8081", "22"],
+      "rede": "192.168.1.102",
+      "status": "manutencao"
+    }
+  },
+  {
+    "timestamp": "2025-09-27 23:26:13",
+    "homelab-dev": {
+      "cpu": "46%",
+      "memoria": "72%",
+      "ram": "8GB",
+      "docker": "13 containers ativos",
+      "portas": ["80", "443", "22", "8080"],
+      "rede": "192.168.1.100",
+      "status": "online"
+    },
+    "homelab-test": {
+      "cpu": "86%",
+      "memoria": "84%",
+      "ram": "16GB",
+      "docker": "8 containers ativos",
+      "portas": ["3000", "5000", "22", "3306"],
+      "rede": "192.168.1.101",
+      "status": "online"
+    },
+    "homelab-prod": {
+      "cpu": "17%",
+      "memoria": "30%",
+      "ram": "4GB",
+      "docker": "3 containers ativos",
+      "portas": ["8081", "22"],
+      "rede": "192.168.1.102",
+      "status": "manutencao"
+    }
+  },
+  {
+    "timestamp": "2025-09-27 23:40:58",
+    "homelab-dev": {
+      "cpu": "48%",
+      "memoria": "72%",
+      "ram": "8GB",
+      "docker": "12 containers ativos",
+      "portas": ["80", "443", "22", "8080"],
+      "rede": "192.168.1.100",
+      "status": "online"
+    },
+    "homelab-test": {
+      "cpu": "88%",
+      "memoria": "87%",
+      "ram": "16GB",
+      "docker": "7 containers ativos",
+      "portas": ["3000", "5000", "22", "3306"],
+      "rede": "192.168.1.101",
+      "status": "online"
+    },
+    "homelab-prod": {
+      "cpu": "23%",
+      "memoria": "36%",
+      "ram": "4GB",
+      "docker": "5 containers ativos",
+      "portas": ["8081", "22"],
+      "rede": "192.168.1.102",
+      "status": "manutencao"
+    }
+  },
+  {
+    "timestamp": "2025-09-27 23:55:31",
+    "homelab-dev": {
+      "cpu": "50%",
+      "memoria": "74%",
+      "ram": "8GB",
+      "docker": "11 containers ativos",
+      "portas": ["80", "443", "22", "8080"],
+      "rede": "192.168.1.100",
+      "status": "online"
+    },
+    "homelab-test": {
+      "cpu": "90%",
+      "memoria": "88%",
+      "ram": "16GB",
+      "docker": "6 containers ativos",
+      "portas": ["3000", "5000", "22", "3306"],
+      "rede": "192.168.1.101",
+      "status": "online"
+    },
+    "homelab-prod": {
+      "cpu": "19%",
+      "memoria": "33%",
+      "ram": "4GB",
+      "docker": "4 containers ativos",
+      "portas": ["8081", "22"],
+      "rede": "192.168.1.102",
+      "status": "manutencao"
+    }
+  },
+  {
+    "timestamp": "2025-09-27 23:57:54",
+    "homelab-dev": {
+      "cpu": "47%",
+      "memoria": "72%",
+      "ram": "8GB",
+      "docker": "12 containers ativos",
+      "portas": ["80", "443", "22", "8080"],
+      "rede": "192.168.1.100",
+      "status": "online"
+    },
+    "homelab-test": {
+      "cpu": "84%",
+      "memoria": "84%",
+      "ram": "16GB",
+      "docker": "7 containers ativos",
+      "portas": ["3000", "5000", "22", "3306"],
+      "rede": "192.168.1.101",
+      "status": "online"
+    },
+    "homelab-prod": {
+      "cpu": "20%",
+      "memoria": "34%",
+      "ram": "4GB",
+      "docker": "4 containers ativos",
+      "portas": ["8081", "22"],
+      "rede": "192.168.1.102",
+      "status": "manutencao"
+    }
+  }
+]

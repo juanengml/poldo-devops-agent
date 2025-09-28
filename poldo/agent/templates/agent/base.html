@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Poldo - Chat Homelab{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+    <style>
+        /* Dark Mode Base */
+        body {
+            background-color: #343541;
+            color: #ffffff;
+            height: 100vh;
+            display: flex;
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            width: 260px;
+            background-color: #202123;
+            border-right: 1px solid #4d4d4f;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .sidebar-button {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: transparent;
+            border: 1px solid #4d4d4f;
+            border-radius: 6px;
+            color: #ffffff;
+            text-align: left;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .sidebar-button:hover {
+            background-color: #343541;
+        }
+        
+        .sidebar-button.is-active {
+            background-color: #10a37f;
+            color: #ffffff;
+        }
+        
+        .sidebar-button.is-active:hover {
+            background-color: #0d8f6f;
+        }
+        
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        
+        /* Header */
+        .chat-header {
+            background-color: #343541;
+            border-bottom: 1px solid #4d4d4f;
+            padding: 1rem 2rem;
+            text-align: center;
+        }
+        
+        /* Chat Messages */
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .message-bubble {
+            max-width: 70%;
+            padding: 1rem 1.25rem;
+            border-radius: 12px;
+            word-wrap: break-word;
+            white-space: pre-line;
+            line-height: 1.5;
+        }
+        
+        .message-bubble.user {
+            align-self: flex-end;
+            background-color: #10a37f;
+            color: #ffffff;
+            border-bottom-right-radius: 4px;
+        }
+        
+        .message-bubble.bot {
+            align-self: flex-start;
+            background-color: #444654;
+            color: #ffffff;
+            border-bottom-left-radius: 4px;
+            border: 1px solid #4d4d4f;
+        }
+        
+        /* Chat Form */
+        .chat-form {
+            background-color: #343541;
+            border-top: 1px solid #4d4d4f;
+            padding: 1rem 2rem;
+        }
+        
+        .input {
+            background-color: #40414f;
+            border: 1px solid #4d4d4f;
+            color: #ffffff;
+            border-radius: 12px;
+            font-size: 1rem;
+            padding: 0.75rem 1rem;
+        }
+        
+        .input:focus {
+            border-color: #10a37f;
+            box-shadow: 0 0 0 2px rgba(16, 163, 127, 0.2);
+        }
+        
+        .input::placeholder {
+            color: #8e8ea0;
+        }
+        
+        .button.is-success {
+            background-color: #10a37f;
+            border-color: #10a37f;
+            border-radius: 12px;
+            width: 48px;
+            height: 48px;
+        }
+        
+        .button.is-success:hover {
+            background-color: #0d8f6f;
+            border-color: #0d8f6f;
+        }
+        
+        /* Scrollbar customization */
+        .chat-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .chat-messages::-webkit-scrollbar-track {
+            background: #343541;
+        }
+        
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: #4d4d4f;
+            border-radius: 3px;
+        }
+        
+        .chat-messages::-webkit-scrollbar-thumb:hover {
+            background: #6d6d6f;
+        }
+    </style>
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        {% block sidebar %}
+        <a href="{% url 'agent:new_conversation' %}" class="sidebar-button">
+            <i class="fas fa-plus"></i> Nova Conversa
+        </a>
+        <hr style="border-color: #4d4d4f; margin: 1rem 0;">
+        
+        <!-- Lista de conversas -->
+        <div style="flex: 1; overflow-y: auto;">
+            {% for conversation in all_conversations %}
+                <a href="?conversation_id={{ conversation.id }}" 
+                   class="sidebar-button {% if conversation.id == current_conversation.id %}is-active{% endif %}"
+                   style="display: block; text-decoration: none; margin-bottom: 0.5rem;">
+                    <i class="fas fa-comment"></i> {{ conversation.title }}
+                    <br>
+                    <small style="color: #8e8ea0; font-size: 0.8rem;">
+                        {{ conversation.created_at|date:"d/m H:i" }}
+                    </small>
+                </a>
+            {% empty %}
+                <div style="color: #8e8ea0; text-align: center; padding: 1rem;">
+                    Nenhuma conversa ainda
+                </div>
+            {% endfor %}
+        </div>
+        
+        <hr style="border-color: #4d4d4f; margin: 1rem 0;">
+        <button class="sidebar-button">
+            <i class="fas fa-moon"></i> Dark Mode
+        </button>
+        <button class="sidebar-button">
+            <i class="fas fa-cog"></i> Configurações
+        </button>
+        <button class="sidebar-button">
+            <i class="fas fa-question-circle"></i> Ajuda
+        </button>
+        {% endblock %}
+    </aside>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <header class="chat-header">
+            {% block header %}
+            <div class="is-flex is-justify-content-space-between is-align-items-center">
+                <div>
+                    <h1 class="title is-4 has-text-white">
+                        <i class="fas fa-robot"></i> Poldo
+                    </h1>
+                    <h2 class="subtitle is-6 has-text-white">
+                        Chat Homelab - Sistema de Monitoramento
+                    </h2>
+                </div>
+                <div>
+                    <a href="{% url 'agent:new_conversation' %}" class="button is-small is-light">
+                        <span class="icon">
+                            <i class="fas fa-plus"></i>
+                        </span>
+                        <span>Nova Conversa</span>
+                    </a>
+                </div>
+            </div>
+            {% endblock %}
+        </header>
+
+        <!-- Content Area -->
+        {% block content %}
+        <div class="chat-messages">
+            <!-- Mensagem de boas-vindas (apenas se não há mensagens) -->
+            {% if not chat_messages %}
+            <div class="message-bubble bot">
+                <i class="fas fa-robot"></i> Olá! Sou o Poldo, seu assistente para monitoramento de homelabs. 
+                
+Posso ajudar você a consultar informações sobre:
+• CPU, memória e RAM dos homelabs
+• Status dos containers Docker
+• Portas e configurações de rede
+• Status geral dos sistemas
+
+Exemplos: "qual a cpu do homelab-dev?", "status do homelab-test"
+            </div>
+            {% endif %}
+            
+            <!-- Histórico completo de mensagens -->
+            {% for message in chat_messages %}
+                {% if message.role == 'user' %}
+                <div class="message-bubble user">
+                    {{ message.text }}
+                </div>
+                {% else %}
+                <div class="message-bubble bot">
+                    {{ message.text }}
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        <!-- Chat Form -->
+        <div class="chat-form">
+            <form method="POST" id="chatForm">
+                {% csrf_token %}
+                <div class="field has-addons">
+                    <div class="control is-expanded">
+                        <input class="input" 
+                               type="text" 
+                               name="question" 
+                               id="questionInput"
+                               placeholder="Digite sua pergunta sobre os homelabs..." 
+                               required>
+                    </div>
+                    <div class="control">
+                        <button class="button is-success" type="submit">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        {% endblock %}
+    </div>
+
+    {% block extra_js %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const questionInput = document.getElementById('questionInput');
+            const chatForm = document.getElementById('chatForm');
+            const chatMessages = document.querySelector('.chat-messages');
+            const sendButton = document.querySelector('.button.is-success');
+            
+            // Função para obter CSRF token
+            function getCSRFToken() {
+                return document.querySelector('[name=csrfmiddlewaretoken]').value;
+            }
+            
+            // Função para obter conversation_id da URL
+            function getConversationId() {
+                const urlParams = new URLSearchParams(window.location.search);
+                return urlParams.get('conversation_id');
+            }
+            
+            // Função para animar entrada de mensagem
+            function animateMessage(element) {
+                // Define estado inicial
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(12px)';
+                
+                // Anima entrada
+                anime({
+                    targets: element,
+                    opacity: [0, 1],
+                    translateY: [12, 0],
+                    duration: 350,
+                    easing: 'easeOutQuad'
+                });
+            }
+            
+            // Função para auto-scroll suave
+            function smoothScrollToBottom() {
+                if (chatMessages) {
+                    chatMessages.scrollTo({
+                        top: chatMessages.scrollHeight,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+            
+            // Função para enviar mensagem via AJAX
+            async function sendMessage() {
+                const question = questionInput.value.trim();
+                if (!question) return;
+                
+                // Desabilita input e botão durante envio
+                questionInput.disabled = true;
+                sendButton.disabled = true;
+                
+                // Animação do botão
+                anime({
+                    targets: sendButton,
+                    scale: [1, 1.12, 1],
+                    duration: 180,
+                    easing: 'easeOutQuad'
+                });
+                
+                try {
+                    const response = await fetch('{% url "agent:send_message" %}', {
+                        method: 'POST',
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': getCSRFToken()
+                        },
+                        body: JSON.stringify({
+                            question: question,
+                            conversation_id: getConversationId()
+                        })
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (data.ok) {
+                        // Cria elementos temporários para inserir HTML
+                        const tempDiv = document.createElement('div');
+                        tempDiv.innerHTML = data.user_html + data.bot_html;
+                        
+                        // Insere mensagem do usuário
+                        const userElement = tempDiv.firstElementChild;
+                        chatMessages.appendChild(userElement);
+                        animateMessage(userElement);
+                        smoothScrollToBottom();
+                        
+                        // Insere mensagem do bot após um pequeno delay
+                        setTimeout(() => {
+                            const botElement = tempDiv.lastElementChild;
+                            chatMessages.appendChild(botElement);
+                            animateMessage(botElement);
+                            smoothScrollToBottom();
+                        }, 100);
+                        
+                        // Atualiza URL se conversation_id mudou
+                        if (data.conversation_id && data.conversation_id !== getConversationId()) {
+                            const newUrl = new URL(window.location);
+                            newUrl.searchParams.set('conversation_id', data.conversation_id);
+                            window.history.replaceState({}, '', newUrl);
+                        }
+                        
+                        // Limpa input e foca novamente
+                        questionInput.value = '';
+                        questionInput.focus();
+                        
+                    } else {
+                        console.error('Erro:', data.error);
+                        alert('Erro ao enviar mensagem: ' + data.error);
+                    }
+                    
+                } catch (error) {
+                    console.error('Erro de rede:', error);
+                    alert('Erro de conexão. Tente novamente.');
+                } finally {
+                    // Reabilita input e botão
+                    questionInput.disabled = false;
+                    sendButton.disabled = false;
+                }
+            }
+            
+            // Event listeners
+            if (chatForm) {
+                chatForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    sendMessage();
+                });
+            }
+            
+            if (questionInput) {
+                // Enter envia, Shift+Enter quebra linha
+                questionInput.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        sendMessage();
+                    }
+                });
+                
+                // Animação no foco do input
+                questionInput.addEventListener('focus', function() {
+                    anime({
+                        targets: this,
+                        boxShadow: ['0 0 0 2px rgba(16, 163, 127, 0.2)', '0 0 0 4px rgba(16, 163, 127, 0.3)'],
+                        duration: 200,
+                        easing: 'easeOutQuad'
+                    });
+                });
+                
+                questionInput.addEventListener('blur', function() {
+                    anime({
+                        targets: this,
+                        boxShadow: '0 0 0 2px rgba(16, 163, 127, 0.2)',
+                        duration: 200,
+                        easing: 'easeOutQuad'
+                    });
+                });
+            }
+            
+            // Animações de hover para links da sidebar
+            const sidebarButtons = document.querySelectorAll('.sidebar-button');
+            sidebarButtons.forEach(button => {
+                button.addEventListener('mouseenter', function() {
+                    anime({
+                        targets: this,
+                        scale: 1.02,
+                        duration: 200,
+                        easing: 'easeOutQuad'
+                    });
+                });
+                
+                button.addEventListener('mouseleave', function() {
+                    anime({
+                        targets: this,
+                        scale: 1,
+                        duration: 200,
+                        easing: 'easeOutQuad'
+                    });
+                });
+            });
+            
+            // Auto-scroll inicial
+            smoothScrollToBottom();
+        });
+    </script>
+    {% endblock %}
+</body>
+</html>

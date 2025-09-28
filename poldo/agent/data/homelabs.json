@@ -1,0 +1,92 @@
+[
+  {
+    "timestamp": "2025-09-27 21:57:54",
+    "homelab-dev": {
+      "cpu": "52%",
+      "memoria": "68%",
+      "ram": "8GB",
+      "docker": "11 containers ativos",
+      "portas": ["80", "443", "22", "8080"],
+      "rede": "192.168.1.100",
+      "status": "online"
+    },
+    "homelab-test": {
+      "cpu": "78%",
+      "memoria": "81%",
+      "ram": "16GB",
+      "docker": "8 containers ativos",
+      "portas": ["3000", "5000", "22", "3306"],
+      "rede": "192.168.1.101",
+      "status": "online"
+    },
+    "homelab-prod": {
+      "cpu": "15%",
+      "memoria": "28%",
+      "ram": "4GB",
+      "docker": "3 containers ativos",
+      "portas": ["8081", "22"],
+      "rede": "192.168.1.102",
+      "status": "online"
+    }
+  },
+  {
+    "timestamp": "2025-09-27 22:12:34",
+    "homelab-dev": {
+      "cpu": "45%",
+      "memoria": "71%",
+      "ram": "8GB",
+      "docker": "12 containers ativos",
+      "portas": ["80", "443", "22", "8080"],
+      "rede": "192.168.1.100",
+      "status": "online"
+    },
+    "homelab-test": {
+      "cpu": "89%",
+      "memoria": "87%",
+      "ram": "16GB",
+      "docker": "6 containers ativos",
+      "portas": ["3000", "5000", "22", "3306"],
+      "rede": "192.168.1.101",
+      "status": "online"
+    },
+    "homelab-prod": {
+      "cpu": "18%",
+      "memoria": "31%",
+      "ram": "4GB",
+      "docker": "4 containers ativos",
+      "portas": ["8081", "22"],
+      "rede": "192.168.1.102",
+      "status": "online"
+    }
+  },
+  {
+    "timestamp": "2025-09-27 22:27:15",
+    "homelab-dev": {
+      "cpu": "38%",
+      "memoria": "69%",
+      "ram": "8GB",
+      "docker": "13 containers ativos",
+      "portas": ["80", "443", "22", "8080"],
+      "rede": "192.168.1.100",
+      "status": "online"
+    },
+    "homelab-test": {
+      "cpu": "92%",
+      "memoria": "89%",
+      "ram": "16GB",
+      "docker": "7 containers ativos",
+      "portas": ["3000", "5000", "22", "3306"],
+      "rede": "192.168.1.101",
+      "status": "online"
+    },
+    "homelab-prod": {
+      "cpu": "22%",
+      "memoria": "35%",
+      "ram": "4GB",
+      "docker": "5 containers ativos",
+      "portas": ["8081", "22"],
+      "rede": "192.168.1.102",
+      "status": "online"
+    }
+  }
+  ]

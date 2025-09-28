@@ -1,0 +1,57 @@
+{% extends 'agent/base.html' %}
+
+{% block title %}Poldo - Chat Homelab{% endblock %}
+
+{% block content %}
+<div class="chat-messages">
+    <!-- Mensagem de boas-vindas (apenas se não há mensagens) -->
+    {% if not chat_messages %}
+    <div class="message-bubble bot">
+        <i class="fas fa-robot"></i> Olá! Sou o Poldo, seu assistente para monitoramento de homelabs. 
+        
+Posso ajudar você a consultar informações sobre:
+• CPU, memória e RAM dos homelabs
+• Status dos containers Docker
+• Portas e configurações de rede
+• Status geral dos sistemas
+
+Exemplos: "qual a cpu do homelab-dev?", "status do homelab-test"
+    </div>
+    {% endif %}
+    
+    <!-- Histórico completo de mensagens -->
+    {% for message in chat_messages %}
+        {% if message.role == 'user' %}
+        <div class="message-bubble user">
+            {{ message.text }}
+        </div>
+        {% else %}
+        <div class="message-bubble bot">
+            {{ message.text }}
+        </div>
+        {% endif %}
+    {% endfor %}
+</div>
+
+<!-- Chat Form -->
+<div class="chat-form">
+    <form method="POST" id="chatForm">
+        {% csrf_token %}
+        <div class="field has-addons">
+            <div class="control is-expanded">
+                <input class="input" 
+                       type="text" 
+                       name="question" 
+                       id="questionInput"
+                       placeholder="Digite sua pergunta sobre os homelabs..." 
+                       required>
+            </div>
+            <div class="control">
+                <button class="button is-success" type="submit">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
